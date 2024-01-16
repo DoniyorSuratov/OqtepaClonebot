@@ -1,0 +1,31 @@
+version: "3.11"
+
+services:
+  bot:
+    build: .
+    restart: always
+    working_dir: /apps
+    container_name: oqtepa_bot_con
+    environment:
+      TOKEN: 6668108709:AAED2uUK6DZ4KmR54fmlcPyeAsviRKtO5fw
+      DATABASE : postgres
+      DB_USER : postgres
+      DB_HOST : pg
+      DB_PORT : 5432
+      DB_PASSWORD: 1
+    command: python3 main.py
+
+
+  pg:
+    image: postgres:15.3-alpine
+    restart: always
+    container_name: pg
+    environment:
+      - POSTGRES_PASSWORD=1
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+
+volumes:
+  pg_data:
